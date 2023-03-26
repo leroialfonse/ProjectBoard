@@ -1,0 +1,33 @@
+/* Set up the display of the main board */
+
+.kanban{
+    display: flex;
+    padding: 2rem;
+    width: 15.625rem;
+    background: #223084;
+    border-radius: 5px;
+}
+
+/* Fonts for the entire board. */
+.kanban *{
+    font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+}
+
+/* How much space the columns of the board get.*/
+.kanban-column{
+    flex: 1
+}
+
+/* Spacing out each column of the board, with margin on the right, except for the last. */
+.kanban-column:not(:last-child){
+    margin-right: 2rem;
+}
+
+/* Disable interaction with column titles, and sete their display options. */
+.kanban-column-title{
+    margin-bottom: 1.25rem;
+    font-size: 2rem;
+    color: white;
+    /* This line in particular stops user interaction. */
+    user-select: none;
+}
