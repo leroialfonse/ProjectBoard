@@ -14,17 +14,17 @@
 }
 
 /* How much space the columns of the board get.*/
-.kanban-column{
+.kanban__column{
     flex: 1
 }
 
 /* Spacing out each column of the board, with margin on the right, except for the last. */
-.kanban-column:not(:last-child){
+.kanban__column:not(:last-child){
     margin-right: 2rem;
 }
 
 /* Disable interaction with column titles, and sete their display options. */
-.kanban-column-title{
+.kanban__column-title{
     margin-bottom: 1.25rem;
     font-size: 2rem;
     color: white;
@@ -33,7 +33,7 @@
 }
 
 /* Items in the board */
-.kanban-item-input{
+.kanban__item-input{
     padding: 10px 15px;
     box-sizing: border-box;
     background: white;
@@ -43,21 +43,21 @@
 
 
 /* Where items will land highlighted */
-.kanban-dropzone{
+.kanban__dropzone{
     height: 20px;
     transition: background 0.15s,height 0.15s;
 }
 
 /* Active items Opacity */
 
-.kanban-dropzone-active{
+.kanban__dropzone-active{
     height: 40px;
     background: rgba(0,0,0,0.25);
 }
 
 
 /* Adding items to the board */
-.kanban-add-item{
+.kanban__add-item{
     width: 100%;
     padding: 10px 0;
     font-size: 16px;

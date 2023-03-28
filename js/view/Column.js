@@ -6,18 +6,18 @@ import Item from "./Item.js"
 export default class Column {
     // A constructor that will do the actual building.
     constructor(id, title) {
-        this.element = {}
+        this.elements = {}
         this.elements.root = Column.createRoot()
-        this.element.title = this.elements.root.querySelector(".kanban-column-title")
-        this.elements.items = this.elements.root.querySelector(".kanban-column-items")
-        this.elements.addItem = this.elements.root.querySelector(".kanban-add-items")
+        this.elements.title = this.elements.root.querySelector(".kanban__column-title")
+        this.elements.items = this.elements.root.querySelector(".kanban__column-items")
+        this.elements.addItem = this.elements.root.querySelector(".kanban__add-item")
 
         this.elements.root.dataset.id = id
-        this.element.title.textContent = title
+        this.elements.title.textContent = title
 
         // What happens to add items?
         this.elements.addItem.addEventListener("click", () => {
-            const newItem = KanbanAPI.insertItems(id, "")
+            const newItem = KanbanAPI.insertItem(id, "")
             this.renderItem(newItem)
         })
     }
@@ -30,11 +30,11 @@ export default class Column {
         // The code that actually hooks the range to the document.
         range.selectNode(document.body)
 
-        // Creates the actual HTML element ( contextual fragment ), directly inside JS. 
+        // Creates the actual HTML elements ( contextual fragment ), directly inside JS. 
         return range.createContextualFragment(`           
-            <div class="kanban-column-title"></div>
-            <div class="kanban-column-items"></div>
-            <button class="kanban-add-items" type="button">Add</button>
+            <div class="kanban__column-title"></div>
+            <div class="kanban__column-items"></div>
+            <button class="kanban__add-items" type="button">Add</button>
             </div>        
 
         `).children[0]
@@ -43,6 +43,7 @@ export default class Column {
 
     // Show the items in the column, as a child of the column
     renderItem(data) {
+        console.log(data.id, data.content)
         const item = new Item(data.id, data.content)
         this.elements.items.appednChild(item.elements.root)
     }

@@ -1,13 +1,13 @@
 // Building the structure that builds items in the columns
 
 import KanbanAPI from "../api/KanBanAPI.js"
-import Kanban from "./KanbanBoard"
+import Kanban from "./Kanban.js"
 
 export default class Item {
     constructor(id, content) {
         this.elements = {}
         this.elements.root = Item.createRoot()
-        this.elements.input = this.elements.root.querySelector("kanban-item-input")
+        this.elements.input = this.elements.root.querySelector("kanban__item-input")
         this.elements.root.dataset.id = id
         this.elements.input.textContent = content
         this.content = content
@@ -15,7 +15,7 @@ export default class Item {
         // Setting what happens when a user clicks away from something. Like, if the user clicks outside of the edit item, the changes get saved. Similar to what happens when you click out of a window, and the mouse focus changes over. 
         const onBlur = () => {
             // Select the item that was changed, and remove whitespace.
-            const newContent = this.elelments.input.textContent.trim()
+            const newContent = this.elements.input.textContent.trim()
 
             if (newContent === this.content) {
                 return
@@ -67,8 +67,8 @@ export default class Item {
         range.selectNode(document.body)
 
         return range.createContextualFragment(`
-        <div class="kanban-item" draggable="true">
-        <div class="kanban-item-input" contenteditable></div>
+        <div class="kanban__item" draggable="true">
+        <div class="kanban__item-input" contenteditable></div>
         </div>
     `)
 

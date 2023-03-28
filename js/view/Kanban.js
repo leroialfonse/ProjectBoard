@@ -9,7 +9,6 @@ export default class Kanban {
 
         // Creates the column instance 
         Kanban.columns().forEach(column => {
-            // TODO: Create an instance of column class
             const columnView = new Column(column.id, column.title)
             this.root.appendChild(columnView.elements.root)
         })
@@ -21,13 +20,16 @@ export default class Kanban {
             {
                 id: 1,
                 title: "Not Started"
-            }, {
+            },
+            {
                 id: 2,
                 title: "In Progress"
-            }, {
+            },
+            {
                 id: 3,
                 title: "Completed"
-            }, {
+            },
+            {
                 id: 4,
                 title: "On Hold"
             },
