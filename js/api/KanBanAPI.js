@@ -42,6 +42,18 @@ export default class KanbanAPI {
     static deleteItem(itemId) {
         const data = read()
 
+        // Loop through the columns of items
+        for (const column of data) {
+            // Loop through the items in the column
+            const item = column.items.find(item => item.id == itemId)
+
+            // If the item exists, want to adapt the list with a splice
+            if (item) {
+                column.items.splice(column.items.indexOf(item), 1)
+            }
+        }
+
+        save(data)
     }
 }
 
