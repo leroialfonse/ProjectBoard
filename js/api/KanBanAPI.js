@@ -37,6 +37,12 @@ export default class KanbanAPI {
         // Ensure the new item will be displayed. 
         return item
     }
+
+    // Delete an item
+    static deleteItem(itemId) {
+        const data = read()
+
+    }
 }
 
 
