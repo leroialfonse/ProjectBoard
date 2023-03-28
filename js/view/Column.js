@@ -29,6 +29,7 @@ export default class Column {
         // The code that actually hooks the range to the document.
         range.selectNode(document.body)
 
+        // Creates the actual HTML element ( contextual fragment ), directly inside JS. 
         return range.createContextualFragment(`           
             <div class="kanban-column-title"></div>
             <div class="kanban-column-items"></div>
