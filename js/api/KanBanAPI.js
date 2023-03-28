@@ -38,6 +38,44 @@ export default class KanbanAPI {
         return item
     }
 
+    static updateItem(itemId, newProps) {
+        const data = read()
+        // Perform a little destructuring on the item and current column, by creating an anon function and assigning results to those variables.
+        const [item, currentColumn] = (() => {
+            // looping through the the coluns of data 
+            for (const column of data) {
+                const item = column.items.find(item => item.id == itemId)
+
+                // If you found that item, then get back the current item info and it's column
+                if (!item) {
+                    throw new Error("Item not found!")
+                }
+
+
+                // Check to see if the item you're looking at has had updated it's content after a move or whatever, and whether it needs to be reset. 
+                item.content = newProps.content === undefined ? item.content : newProps.content
+
+                // Updating column item positions
+                if (
+                    // If there's a new item in a new column, or a new position for an item
+                    newProps.columnId !== undefined && newProps.position !== undefined
+                ) {
+                    const targetColumn = data.find(column => column.id == newProps.columnId)
+
+                    if (!targetColumn) {
+                        throw new Error("Target column not found!")
+                    }
+
+                    // Delete the item out of it's old column
+                    currentColumn.items.splice(currentColumn.items.indexOf(item), 1)
+
+                    // Place that column item, into the new column/positon
+                    targetColumn.items.splice(newProps.position, 0, item)
+                }
+            }
+        })
+    }
+
     // Delete an item
     static deleteItem(itemId) {
         const data = read()
