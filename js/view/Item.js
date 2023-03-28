@@ -45,7 +45,18 @@ export default class Item {
         this.elements.input.addEventListener("blur", onBlur)
 
         // If someone doubleclicks on an item, Ask if the user wants to delete the item, and delete on confirm.
-        this.elements.root.addEventListener("dblclick", confirmOrKill)
+        this.elements.root.addEventListener("dblclick", () => {
+            const check = confirm("Are you sure you want to delete?")
+
+            // If check is confirmed, deletes the item from the parent(column), and from local storage.
+            if (check) {
+                KanbanAPI.deleteItem(id)
+                this.elements.input.removeEventListener("blur", onBlur)
+                this.elements.root.parentElement.removeChild(this.elements.root)
+            }
+        })
+
+        // this.elements.root.addEventListener("dblclick", confirmOrKill)
         /* this was the original method for the confirmOrKill function. It was passed in as the second param for the evnet lister for the above event, as an anon function. If used, remove the function expresssion confirmOrKill higher up.  
         
         () => {

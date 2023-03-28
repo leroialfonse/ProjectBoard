@@ -2,8 +2,8 @@
 
 .kanban{
     display: flex;
-    padding: 2rem;
-    width: 15.625rem;
+    padding: 30px;
+    width: 750px;
     background: #223084;
     border-radius: 5px;
 }
@@ -20,14 +20,15 @@
 
 /* Spacing out each column of the board, with margin on the right, except for the last. */
 .kanban__column:not(:last-child){
-    margin-right: 2rem;
+    margin-right: 30px;
 }
 
 /* Disable interaction with column titles, and sete their display options. */
 .kanban__column-title{
-    margin-bottom: 1.25rem;
-    font-size: 2rem;
+    margin-bottom: 20px;
+    font-size: 30px;
     color: white;
+    font-weight: bold;
     /* This line in particular stops user interaction. */
     user-select: none;
 }

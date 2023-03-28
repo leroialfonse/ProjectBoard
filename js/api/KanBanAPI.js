@@ -2,7 +2,7 @@
 
 
 // The class to export 
-export default class KanbanAPI {
+export default class KanBanAPI {
     // the method to show a column where the data is/will be stored.
     static getItems(columnId) {
         const column = read().find(column => column.id == columnId)
@@ -17,13 +17,13 @@ export default class KanbanAPI {
     }
 
     //Creating new items to be stored in the column.
-    static insertItems(columnId, content) {
+    static insertItem(columnId, content) {
         const data = read()
         const column = data.find(column => column.id == columnId)
         const item = {
             // Creete an id for items by using a random number 0 - 100000, and rounding it to whole numbers, and the content that will exist in the item.
             id: Math.floor(Math.random() * 100000),
-            content
+            content,
         }
 
         if (!column) {
@@ -47,6 +47,10 @@ export default class KanbanAPI {
                 const item = column.items.find(item => item.id == itemId)
 
                 // If you found that item, then get back the current item info and it's column
+                if (item) {
+                    return [item, column]
+                }
+
                 if (!item) {
                     throw new Error("Item not found!")
                 }
@@ -72,7 +76,10 @@ export default class KanbanAPI {
                     // Place that column item, into the new column/positon
                     targetColumn.items.splice(newProps.position, 0, item)
                 }
+                save(data)
+
             }
+
         })
     }
 
@@ -107,13 +114,16 @@ function read() {
             {
                 id: 1,
                 items: []
-            }, {
+            },
+            {
                 id: 2,
                 items: []
-            }, {
+            },
+            {
                 id: 3,
                 items: []
-            }, {
+            },
+            {
                 id: 4,
                 items: []
             },
