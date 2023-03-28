@@ -31,3 +31,39 @@
     /* This line in particular stops user interaction. */
     user-select: none;
 }
+
+/* Items in the board */
+.kanban-item-input{
+    padding: 10px 15px;
+    box-sizing: border-box;
+    background: white;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+
+/* Where items will land highlighted */
+.kanban-dropzone{
+    height: 20px;
+    transition: background 0.15s,height 0.15s;
+}
+
+/* Active items Opacity */
+
+.kanban-dropzone-active{
+    height: 40px;
+    background: rgba(0,0,0,0.25);
+}
+
+
+/* Adding items to the board */
+.kanban-add-item{
+    width: 100%;
+    padding: 10px 0;
+    font-size: 16px;
+    color: white;
+    background: rgba(0,0,0,0.25);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
