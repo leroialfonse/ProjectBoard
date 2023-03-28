@@ -5,7 +5,10 @@ export default class Kanban {
     constructor(root) {
         this.root = root
 
-        // 
+        // Creates the column instance 
+        Kanban.columns().forEach(column => {
+            // TODO: Create an instance of column class
+        })
     }
 
     // A method that builds the columns
