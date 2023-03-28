@@ -1,5 +1,7 @@
 // create a class to export and use in other places.
 
+import Column from "./Column.js"
+
 export default class Kanban {
     // Goes to the html div that includes the kanban board, to build the item there.
     constructor(root) {
@@ -8,6 +10,8 @@ export default class Kanban {
         // Creates the column instance 
         Kanban.columns().forEach(column => {
             // TODO: Create an instance of column class
+            const columnView = new Column(column.id, column.title)
+            this.root.appendChild(columnView.elements.root)
         })
     }
 

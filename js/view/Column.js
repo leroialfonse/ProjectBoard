@@ -1,6 +1,7 @@
 // Creates column class
 
 import KanbanAPI from "../api/KanBanAPI.js"
+import Item from "./Item.js"
 
 export default class Column {
     // A constructor that will do the actual building.
