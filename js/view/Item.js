@@ -1,13 +1,12 @@
 // Building the structure that builds items in the columns
 
-import KanbanAPI from "../api/KanBanAPI.js"
-import Kanban from "./Kanban.js"
+import KanbanAPI from "../api/KanbanAPI.js"
 
 export default class Item {
     constructor(id, content) {
         this.elements = {}
         this.elements.root = Item.createRoot()
-        this.elements.input = this.elements.root.querySelector("kanban__item-input")
+        this.elements.input = this.elements.root.querySelector(".kanban__item-input")
         this.elements.root.dataset.id = id
         this.elements.input.textContent = content
         this.content = content
@@ -29,8 +28,24 @@ export default class Item {
             })
         }
 
-        const confirmOrKill = () => {
-            const check = confirm("Are you sure you want to delete?")
+        // const confirm = () => {
+        //     const check = confirm("Are you sure you want to delete?")
+
+        //     // If check is confirmed, deletes the item from the parent(column), and from local storage.
+        //     if (check) {
+        //         KanbanAPI.deleteItem(id)
+        //         this.elements.input.removeEventListener("blur", onBlur)
+        //         this.elements.root.parentElement.removeChild(this.elements.root)
+        //     }
+        // }
+
+
+        // When someone makes a change and clicks away, listen for that event and perform an update. 
+        this.elements.input.addEventListener("blur", onBlur)
+
+        // If someone doubleclicks on an item, Ask if the user wants to delete the item, and delete on confirm.
+        this.elements.root.addEventListener("dblclick", () => {
+            const check = confirm("Are you sure you want to delete this Item?")
 
             // If check is confirmed, deletes the item from the parent(column), and from local storage.
             if (check) {
@@ -39,22 +54,7 @@ export default class Item {
                 this.elements.root.parentElement.removeChild(this.elements.root)
             }
         }
-
-
-        // When someone makes a change and clicks away, listen for that event and perform an update. 
-        this.elements.input.addEventListener("blur", onBlur)
-
-        // If someone doubleclicks on an item, Ask if the user wants to delete the item, and delete on confirm.
-        this.elements.root.addEventListener("dblclick", () => {
-            const check = confirm("Are you sure you want to delete?")
-
-            // If check is confirmed, deletes the item from the parent(column), and from local storage.
-            if (check) {
-                KanbanAPI.deleteItem(id)
-                this.elements.input.removeEventListener("blur", onBlur)
-                this.elements.root.parentElement.removeChild(this.elements.root)
-            }
-        })
+        )
 
         // this.elements.root.addEventListener("dblclick", confirmOrKill)
         /* this was the original method for the confirmOrKill function. It was passed in as the second param for the evnet lister for the above event, as an anon function. If used, remove the function expresssion confirmOrKill higher up.  
@@ -73,7 +73,7 @@ export default class Item {
 
 
     static createRoot() {
-        const range = documnent.createRange()
+        const range = document.createRange()
 
         range.selectNode(document.body)
 
@@ -81,7 +81,77 @@ export default class Item {
         <div class="kanban__item" draggable="true">
         <div class="kanban__item-input" contenteditable></div>
         </div>
-    `)
+        `).children[0]
 
     }
 }
+
+
+
+
+// import KanbanAPI from "../api/KanbanAPI.js"
+// import DropZone from "./DropZone.js"
+
+
+// export default class Item {
+//     constructor(id, content) {
+
+//         const bottomDropZone = DropZone.createDropZone()
+
+//         this.elements = {}
+//         this.elements.root = Item.createRoot()
+//         this.elements.input = this.elements.root.querySelector(".kanban__item-input")
+//         this.elements.root.dataset.id = id
+//         this.elements.input.textContent = content
+//         this.content = content
+
+//         this.elements.root.appendChild(bottomDropZone)
+
+//         const onBlur = () => {
+//             const newContent = this.elements.input.textContent.trim()
+
+//             if(newContent === this.content) {
+//                 return
+//             }
+
+//             this.content = newContent
+
+//             KanbanAPI.updateItem(id, {
+//                 content: this.content
+//             })
+//         }
+
+//         this.elements.input.addEventListener("blur",onBlur)
+//         this.elements.root.addEventListener("dblclick", () => {
+//             const check = confirm("Are you sure you want to delete")
+
+//             if(check) {
+//                 KanbanAPI.deleteItem(id)
+//                 this.elements.input.removeEventListener("blur",onBlur)
+//                 this.elements.root.parentElement.removeChild(this.elements.root)
+//             }
+
+//         }
+//         )
+
+//         this.elements.root.addEventListener("dragstart", e => {
+//             e.dataTransfer.setData("text/plain", id)
+//         })
+
+//         this.elements.input.addEventListener("drop" ,e => {
+//             e.preventDefault()
+//         })
+//     }
+
+//     static createRoot() {
+//         const range = document.createRange()
+
+//         range.selectNode(document.body)
+
+//         return range.createContextualFragment(`
+//             <div class="kanban__item" draggable="true">
+//                 <div class="kanban__item-input" contenteditable></div>
+//             </div>
+//         `).children[0]
+//     }
+// }

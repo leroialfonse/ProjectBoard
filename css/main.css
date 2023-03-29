@@ -28,7 +28,6 @@
     margin-bottom: 20px;
     font-size: 30px;
     color: white;
-    font-weight: bold;
     /* This line in particular stops user interaction. */
     user-select: none;
 }
