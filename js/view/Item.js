@@ -1,15 +1,23 @@
 // Building the structure that builds items in the columns
 
 import KanbanAPI from "../api/KanbanAPI.js"
+import DropZone from "./DropZone.js"
 
 export default class Item {
     constructor(id, content) {
+
+        // create a dropzone for the bottom
+        const bottomDropZone = DropZone.createDropZone()
+
         this.elements = {}
         this.elements.root = Item.createRoot()
         this.elements.input = this.elements.root.querySelector(".kanban__item-input")
         this.elements.root.dataset.id = id
         this.elements.input.textContent = content
         this.content = content
+
+        // Create the dropzone element child
+        this.elements.root.appendChild(bottomDropZone)
 
         // Setting what happens when a user clicks away from something. Like, if the user clicks outside of the edit item, the changes get saved. Similar to what happens when you click out of a window, and the mouse focus changes over. 
         const onBlur = () => {
@@ -69,6 +77,14 @@ export default class Item {
                 this.elements.root.parentElement.removeChild(this.elements.root)
             }
         }) */
+
+        this.elements.root.addEventListener("dragstart", e => {
+            e.dataTransfer.setData("text/plain", id)
+        })
+
+        this.elements.input.addEventListener("drop", e => {
+            e.preventDefault()
+        })
     }
 
 

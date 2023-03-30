@@ -1,11 +1,14 @@
 
 import KanbanAPI from "../api/KanbanAPI.js"
 import Item from "./Item.js";
+import DropZone from "./DropZone.js";
+
 
 export default class Column {
     // A constructor that will do the actual building.
     constructor(id, title) {
 
+        const topDropZone = DropZone.createDropZone()
 
         // 
 
@@ -19,6 +22,9 @@ export default class Column {
         this.elements.root.dataset.id = id
         this.elements.title.textContent = title
 
+
+        // Creating the response that adds a child element that creates the dropped item move. 
+        this.elements.items.appendChild(topDropZone)
 
         // What happens to add items?
         this.elements.addItem.addEventListener("click", () => {

@@ -1,3 +1,5 @@
+import KanbanAPI from "../api/KanbanAPI.js"
+
 // The file that makes things drag and droppable.
 
 export default class DropZone {
@@ -30,13 +32,13 @@ export default class DropZone {
             e.preventDefault()
             dropZone.classList.remove("kanban__dropzone-active")
 
-            const columnElement = dropZone.closest(".kanban_column")
+            const columnElement = dropZone.closest(".kanban__column")
             const columnId = Number(columnElement.dataset.id)
             const dropZonesInColumn = Array.from(columnElement.querySelectorAll(".kanban__dropzone"))
             const droppedIndex = dropZonesInColumn.indexOf(dropZone)
             const itemId = Number(e.dataTransfer.getData("text/plain"))
-            const droppedItemElement = document.querySelector(`[data-id]="${itemId}"]`)
-            const insertAfter = dropzone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone
+            const droppedItemElement = document.querySelector(`[data-id="${itemId}"]`)
+            const insertAfter = dropZone.parentElement.classList.contains("kanban__item") ? dropZone.parentElement : dropZone
 
             if (droppedItemElement.contains(dropZone)) {
                 return
@@ -45,7 +47,8 @@ export default class DropZone {
             insertAfter.after(droppedItemElement)
 
             KanbanAPI.updateItem(itemId, {
-                columnId, position: droppedIndex
+                columnId,
+                position: droppedIndex
             })
         })
 
